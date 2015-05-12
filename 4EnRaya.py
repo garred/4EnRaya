@@ -23,7 +23,7 @@ class Linea:
 	def getCasilla(self,i):
 		return self.lin[i]
 	def __str__(self):
-		#Llamar a __str__() sobre un array, busca el método __repr__() en la clase a la que pertenece cada elemento del array
+		#Llamar a __str__() sobre un array, busca el metodo __repr__() en la clase a la que pertenece cada elemento del array
 		return self.lin.__str__()
 		
 
