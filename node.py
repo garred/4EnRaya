@@ -141,7 +141,7 @@ def alpha_beta(
         for child in node.children:
             v = max(v, alpha_beta(child, depth-1, alpha, beta, False, default_value))
             alpha = max(alpha, v)
-            if alpha > beta:
+            if alpha >= beta:
                 break
         return v
 
@@ -150,7 +150,7 @@ def alpha_beta(
         for child in node.children:
             v = min(v, alpha_beta(child, depth-1, alpha, beta, True, default_value))
             beta = min(beta, v)
-            if alpha > beta:
+            if alpha >= beta:
                 break
         return v
 
