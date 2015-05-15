@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class Casilla:
+class Casilla(object):
 	fila=-1
 	columna=-1
 	def __init__(self,f,c):
@@ -13,7 +13,7 @@ class Casilla:
 		return self.__str__()
 
 
-class Linea:
+class Linea(object):
 	lin=None
 	def __init__(self):
 		self.lin=[]
