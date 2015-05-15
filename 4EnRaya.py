@@ -26,21 +26,6 @@ class Linea(object):
 	def __str__(self):
 		#Llamar a __str__() sobre un array, busca el metodo __repr__() en la clase a la que pertenece cada elemento del array
 		return self.lin.__str__()
-		
-
-
-line=Linea()
-#line.lin=[]
-cas=Casilla(3,2)
-#cas.setValue(3,2)
-#print cas
-line.aniadir(cas)
-cas=Casilla(8,2)
-line.aniadir(cas)
-
-print line
-
-
 
 
 def poner (filas,columnas,matriz,columnaElegida,elementoAPoner,vacio):
@@ -186,77 +171,82 @@ def comprobarTableroLleno(filas,columnas,matriz,vacio):
 	return True;
 
 #main
-vacio=u'\u2591'
-tablero=[[vacio for x in xrange(7)] for y in xrange(7) ]
+def main():
 
-nombreP1=raw_input("Jugador 1, dime tu nombre: ")
-nombreP2=raw_input("Jugador 2, dime tu nombre: ")
+	# Proyecto de devolucion de linea
+	line=Linea()				#
+	#line.lin=[]				#
+	cas=Casilla(3,2)			#
+	#cas.setValue(3,2)			#
+	#print cas 					#
+	line.aniadir(cas)			#
+	cas=Casilla(8,2)			#
+	line.aniadir(cas)			#
+								#
+	print line 					#
+	
 
-simboloP1='O'
-simboloP2='X'
+	vacio=u'\u2591'
+	tablero=[[vacio for x in xrange(7)] for y in xrange(7) ]
 
-victoria=(False,0)
-turno=False
-columnaElegida=-1
-turnoCorrecto=False;
-ganador=""
+	nombreP1=raw_input("Jugador 1, dime tu nombre: ")
+	nombreP2=raw_input("Jugador 2, dime tu nombre: ")
 
-print ""
-print "Instrucciones:"
-print "En cada turno debes indicar un numero del 0 al 6 para jugar en una columna, teniendo en cuenta la siguiente configuracion:"
-for i in xrange(7):
-			for j in xrange(7):
-		 		print tablero[i][j],
-			print ""
-print"0 1 2 3 4 5 6"
-print""
+	simboloP1='O'
+	simboloP2='X'
 
-while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria[0]):
-	if (not turno):#Turno de J1
-		print "Turno de {}".format(nombreP1)
-		
-		try:
-			columnaElegida=input("En que columna quieres poner? (0-6): ")
-			turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP1,vacio)
-		except NameError:
-			pass
-		except SyntaxError:
-			pass		
-		while(not turnoCorrecto):
-			print "La jugada no es valida"
+	victoria=(False,0)
+	turno=False
+	columnaElegida=-1
+	turnoCorrecto=False;
+	ganador=""
+
+	print ""
+	print "Instrucciones:"
+	print "En cada turno debes indicar un numero del 0 al 6 para jugar en una columna, teniendo en cuenta la siguiente configuracion:"
+	for i in xrange(7):
+				for j in xrange(7):
+			 		print tablero[i][j],
+				print ""
+	print"0 1 2 3 4 5 6"
+	print""
+
+	while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria[0]):
+		if (not turno):#Turno de J1
+			print "Turno de {}".format(nombreP1)
+			
 			try:
 				columnaElegida=input("En que columna quieres poner? (0-6): ")
 				turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP1,vacio)
 			except NameError:
 				pass
 			except SyntaxError:
-				pass
+				pass		
+			while(not turnoCorrecto):
+				print "La jugada no es valida"
+				try:
+					columnaElegida=input("En que columna quieres poner? (0-6): ")
+					turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP1,vacio)
+				except NameError:
+					pass
+				except SyntaxError:
+					pass
 
-		turnoCorrecto=False
-		victoria=comprobarVictoria(7,7,tablero,simboloP1);
-		if(victoria[0]):
-			ganador=nombreP1
-		else:
-			turno=True
-		for i in xrange(7):
-			for j in xrange(7):
-		 		print tablero[i][j],
-			print ""
-		print"0 1 2 3 4 5 6"
-		print""
-	else:#Turno de J2
-		print "Turno de {}".format(nombreP2)
-		
-		try:
-			columnaElegida=input("En que columna quieres poner? (0-6): ")
-			turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP2,vacio)
-		except NameError:
-			pass
-		except SyntaxError:
-			pass
-
-		while(not turnoCorrecto):
-			print "La jugada no es valida"
+			turnoCorrecto=False
+			victoria=comprobarVictoria(7,7,tablero,simboloP1);
+			if(victoria[0]):
+				ganador=nombreP1
+			else:
+				turno=True
+			for i in xrange(7):
+				for j in xrange(7):
+			 		print tablero[i][j],
+				print ""
+			print"0 1 2 3 4 5 6"
+			print""
+		else:#Turno de J2
+			print "Turno de {}".format(nombreP2)
+			
 			try:
 				columnaElegida=input("En que columna quieres poner? (0-6): ")
 				turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP2,vacio)
@@ -264,17 +254,31 @@ while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria[0]):
 				pass
 			except SyntaxError:
 				pass
-		
-		turnoCorrecto=False
-		victoria=comprobarVictoria(7,7,tablero,simboloP2);
-		if(victoria[0]):
-			ganador=nombreP2
-		else:
-			turno=False
-		for i in xrange(7):
-			for j in xrange(7):
-		 		print tablero[i][j],
-			print ""
-		print"0 1 2 3 4 5 6"
-		print""
-print "Enhorabuena {}, has hecho 4 en raya, has ganado con {} linea(s)".format(ganador,victoria[1])
+
+			while(not turnoCorrecto):
+				print "La jugada no es valida"
+				try:
+					columnaElegida=input("En que columna quieres poner? (0-6): ")
+					turnoCorrecto=poner (7,7,tablero,columnaElegida,simboloP2,vacio)
+				except NameError:
+					pass
+				except SyntaxError:
+					pass
+			
+			turnoCorrecto=False
+			victoria=comprobarVictoria(7,7,tablero,simboloP2);
+			if(victoria[0]):
+				ganador=nombreP2
+			else:
+				turno=False
+			for i in xrange(7):
+				for j in xrange(7):
+			 		print tablero[i][j],
+				print ""
+			print"0 1 2 3 4 5 6"
+			print""
+	print "Enhorabuena {}, has hecho 4 en raya, has ganado con {} linea(s)".format(ganador,victoria[1])
+
+
+if __name__=="__main__":
+	main()
