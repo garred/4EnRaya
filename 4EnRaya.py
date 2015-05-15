@@ -11,7 +11,10 @@ class Casilla(object):
 		return "[{}][{}]".format(self.fila,self.columna)
 	def __repr__(self):
 		return self.__str__()
-
+	def getFila(self):
+		return fila
+	def getCol(self):
+		return columna
 
 class Linea(object):
 	lin=None
