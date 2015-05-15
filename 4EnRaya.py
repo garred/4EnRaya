@@ -63,84 +63,120 @@ def poner (filas,columnas,matriz,columnaElegida,elementoAPoner,vacio):
 			return False
 
 
+def busquedaLineaVertical(filas,columnas,matriz,fila,col,simbolo):
+	estado_correcto=True
+	resultado=False;
+	if(matriz[fila][col]==simbolo):
+		#busqueda vertical
+		longline=1
+		filaBusqueda=fila
+		while(estado_correcto):
+			if(filaBusqueda+1>=filas):
+				estado_correcto=False
+			else:
+				filaBusqueda=filaBusqueda+1
+				if(matriz[filaBusqueda][col]==simbolo):
+					longline=longline+1
+				else:
+					estado_correcto=False
+			if(longline==4):
+				estado_correcto=False
+				resultado=True		
+				return resultado
+	return resultado
+
+def busquedaLineaHorizontal(filas,columnas,matriz,fila,col,simbolo):
+	estado_correcto=True
+	resultado=False;
+	if(matriz[fila][col]==simbolo):
+		#busqueda vertical
+		longline=1
+		colBusqueda=col
+		while(estado_correcto):
+			if(colBusqueda+1>=columnas):
+				estado_correcto=False
+			else:
+				colBusqueda=colBusqueda+1
+				if(matriz[fila][colBusqueda]==simbolo):
+					longline=longline+1
+				else:
+					estado_correcto=False
+			if(longline==4):
+				estado_correcto=False
+				resultado=True		
+				return resultado
+	return resultado
+
+def busquedaLineaDiagonalPrincipal(filas,columnas,matriz,fila,col,simbolo):
+	estado_correcto=True
+	resultado=False;
+	if(matriz[fila][col]==simbolo):
+		longline=1
+		filaBusqueda=fila
+		colBusqueda=col
+		while(estado_correcto):
+			if(colBusqueda+1>=columnas or filaBusqueda+1>=filas):
+				estado_correcto=False
+			else:
+				filaBusqueda=filaBusqueda+1
+				colBusqueda=colBusqueda+1
+				if(matriz[filaBusqueda][colBusqueda]==simbolo):
+					longline=longline+1
+				else:
+					estado_correcto=False
+			if(longline==4):
+				estado_correcto=False
+				resultado=True
+				return resultado
+	return resultado
+
+def busquedaLineaDiagonalSecundaria(filas,columnas,matriz,fila,col,simbolo):
+	estado_correcto=True
+	resultado=False;
+	if(matriz[fila][col]==simbolo):
+		longline=1
+		filaBusqueda=fila
+		colBusqueda=col
+		while(estado_correcto):
+			if(colBusqueda-1<0 or filaBusqueda+1>=filas):
+				estado_correcto=False
+			else:
+				filaBusqueda=filaBusqueda+1
+				colBusqueda=colBusqueda-1
+				if(matriz[filaBusqueda][colBusqueda]==simbolo):
+					longline=longline+1
+				else:
+					estado_correcto=False
+			if(longline==4):
+				estado_correcto=False
+				resultado=True
+				return resultado
+	return resultado
+
 def comprobarVictoria(filas,columnas,matriz,simbolo):
 	estado_correcto=True
 	resultado=False
+	numLineas=0;
 	for i in range(filas):
 		for j in range(columnas):
 			if(matriz[i][j]==simbolo):
-				longline=1
 				#busqueda vertical
-				filaBusqueda=i
-				while(estado_correcto):
-					if(filaBusqueda+1>=filas):
-						estado_correcto=False
-					else:
-						filaBusqueda=filaBusqueda+1
-						if(matriz[filaBusqueda][j]==simbolo):
-							longline=longline+1
-						else:
-							estado_correcto=False
-					if(longline==4):
-						estado_correcto=False
-						resultado=True		
-						return resultado
+				resultado=busquedaLineaVertical(7,7,matriz,i,j,simbolo);
+				if(resultado):
+					numLineas=numLineas+1
 				#busqueda horizontal
-				longline=1
-				estado_correcto=True
-				colBusqueda=j
-				while(estado_correcto):
-					if(colBusqueda+1>=columnas):
-						estado_correcto=False
-					else:
-						colBusqueda=colBusqueda+1
-						if(matriz[i][colBusqueda]==simbolo):
-							longline=longline+1
-						else:
-							estado_correcto=False
-					if(longline==4):
-						estado_correcto=False
-						resultado=True
-						return resultado
+				resultado=busquedaLineaHorizontal(7,7,matriz,i,j,simbolo)
+				if(resultado):
+					numLineas=numLineas+1
 				#busqueda diagonal principal
-				longline=1
-				estado_correcto=True
-				filaBusqueda=i
-				colBusqueda=j
-				while(estado_correcto):
-					if(colBusqueda+1>=columnas or filaBusqueda+1>=filas):
-						estado_correcto=False
-					else:
-						filaBusqueda=filaBusqueda+1
-						colBusqueda=colBusqueda+1
-						if(matriz[filaBusqueda][colBusqueda]==simbolo):
-							longline=longline+1
-						else:
-							estado_correcto=False
-					if(longline==4):
-						estado_correcto=False
-						resultado=True
-						return resultado
+				resultado=busquedaLineaDiagonalPrincipal(7,7,matriz,i,j,simbolo)
+				if(resultado):
+					numLineas=numLineas+1
 				#busqueda diagonal secundaria
-				longline=1
-				estado_correcto=True
-				filaBusqueda=i
-				colBusqueda=j
-				while(estado_correcto):
-					if(colBusqueda-1<0 or filaBusqueda+1>=filas):
-						estado_correcto=False
-					else:
-						filaBusqueda=filaBusqueda+1
-						colBusqueda=colBusqueda-1
-						if(matriz[filaBusqueda][colBusqueda]==simbolo):
-							longline=longline+1
-						else:
-							estado_correcto=False
-					if(longline==4):
-						estado_correcto=False
-						resultado=True
-						return resultado
-	return resultado
+				resultado=busquedaLineaDiagonalSecundaria(7,7,matriz,i,j,simbolo)		
+				if(resultado):
+					numLineas=numLineas+1
+	return numLineas>0,numLineas
 
 def comprobarTableroLleno(filas,columnas,matriz,vacio):
 	for i in range(filas):
@@ -159,7 +195,7 @@ nombreP2=raw_input("Jugador 2, dime tu nombre: ")
 simboloP1='O'
 simboloP2='X'
 
-victoria=False
+victoria=(False,0)
 turno=False
 columnaElegida=-1
 turnoCorrecto=False;
@@ -175,7 +211,7 @@ for i in xrange(7):
 print"0 1 2 3 4 5 6"
 print""
 
-while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria):
+while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria[0]):
 	if (not turno):#Turno de J1
 		print "Turno de {}".format(nombreP1)
 		
@@ -198,7 +234,7 @@ while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria):
 
 		turnoCorrecto=False
 		victoria=comprobarVictoria(7,7,tablero,simboloP1);
-		if(victoria):
+		if(victoria[0]):
 			ganador=nombreP1
 		else:
 			turno=True
@@ -231,7 +267,7 @@ while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria):
 		
 		turnoCorrecto=False
 		victoria=comprobarVictoria(7,7,tablero,simboloP2);
-		if(victoria):
+		if(victoria[0]):
 			ganador=nombreP2
 		else:
 			turno=False
@@ -241,4 +277,4 @@ while(not comprobarTableroLleno(7,7,tablero,vacio) and not victoria):
 			print ""
 		print"0 1 2 3 4 5 6"
 		print""
-print "Enhorabuena {}, has hecho 4 en raya".format(ganador)
+print "Enhorabuena {}, has hecho 4 en raya, has ganado con {} linea(s)".format(ganador,victoria[1])
