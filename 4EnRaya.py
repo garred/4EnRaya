@@ -170,21 +170,22 @@ def comprobarTableroLleno(filas,columnas,matriz,vacio):
 				return False;
 	return True;
 
-#main
+# Proyecto de devolucion de linea
+def devolucion_linea():
+	line=Linea()				
+	#line.lin=[]				
+	cas=Casilla(3,2)			
+	#cas.setValue(3,2)			
+	#print cas 					
+	line.aniadir(cas)			
+	cas=Casilla(8,2)			
+	line.aniadir(cas)			
+								
+	print line 					
+
 def main():
 
-	# Proyecto de devolucion de linea
-	line=Linea()				#
-	#line.lin=[]				#
-	cas=Casilla(3,2)			#
-	#cas.setValue(3,2)			#
-	#print cas 					#
-	line.aniadir(cas)			#
-	cas=Casilla(8,2)			#
-	line.aniadir(cas)			#
-								#
-	print line 					#
-	
+	#devolucion_linea()
 
 	vacio=u'\u2591'
 	tablero=[[vacio for x in xrange(7)] for y in xrange(7) ]
